@@ -26,7 +26,7 @@
 
 ## Pages List
 ```
-/ 		 -> Homepage
+/        -> Homepage
 
 /account -> Account // private, contains Sign In form if not yet signed in
 
