@@ -4,3 +4,29 @@
 
 $colorMain: #1A237E
 $colorAccent: #FFAB00
+
+$transition: cubic-bezier(.23,1,.32,1)
+
+=pos($position, $top: auto, $left: auto, $right: auto, $bottom: auto)
+	position: $position
+	top: $top
+	left: $left
+	right: $right
+	bottom: $bottom
+
+=toe
+	text-overflow: ellipsis
+	white-space: nowrap
+	overflow: hidden
+
+=placeholder
+	&::-webkit-input-placeholder
+		@content
+	&::-webkit-placeholder
+		@content
+	&::-ms-input-placeholder
+		@content
+	&::-moz-placeholder
+		@content
+	&::placeholder
+		@content

@@ -1,0 +1,89 @@
+@import "styles/vars"
+
+nav.c-navbar
+	+pos(fixed, 0, 0, 0)
+	height: 80px
+	display: flex
+	align-items: stretch
+	justify-content: space-between
+	border-bottom: 1px solid rgba($colorMain, .24)
+	background: white
+	z-index: 12
+
+	div.left
+		display: flex
+		align-items: stretch
+		justify-content: flex-start
+		> *
+			display: flex
+			align-items: center
+			justify-content: center
+			color: rgba($colorMain, .54)
+			position: relative
+			padding: 0 50px
+			transition: all 450ms $transition
+			&:after
+				content: " "
+				+pos(absolute, auto, 0, 0, 0)
+				height: 4px
+				transition: all 450ms $transition
+				transform: scaleY(0.5) translateZ(0)
+				background: $colorMain
+				opacity: .54
+				transform-origin: 100% 100%
+			&:hover
+				background: rgba($colorMain, .12)
+				color: $colorMain
+			&.active
+				pointer-events: none
+				background: rgba($colorMain, .06)
+				color: $colorMain
+				&:after
+					transform: translateZ(0)
+					opacity: 1
+			&.logo
+				font-size: 24px
+				&:after
+					content: none
+
+	div.right
+		display: flex
+		align-items: center
+		justify-content: center
+		padding: 0 20px
+		> *
+			margin-right: 20px
+			&:last-child
+				margin-right: 0
+
+		div.user-actions
+			display: flex
+			align-items: center
+			justify-content: center
+			> *
+				margin-right: 10px
+				&:last-child
+					margin-right: 0
+			div.avatar
+				width: 40px
+				height: 40px
+				background: rgba($colorMain, .24)
+				border-radius: 50%
+				position: relative
+				border: 2px solid transparent
+				overflow: hidden
+				&:before, &:after
+					content: " "
+					border-radius: 50%
+					position: absolute
+					background: white
+				&:before
+					width: 16px
+					height: 16px
+					top: 5px
+					left: calc(50% - 8px)
+				&:after
+					width: 100%
+					height: 100%
+					top: 25px
+					

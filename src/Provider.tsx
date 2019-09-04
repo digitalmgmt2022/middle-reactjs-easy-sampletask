@@ -3,6 +3,8 @@ import { Switch, Route } from "react-router-dom"
 
 import Application from "./App"
 
+import "typings/Global"
+
 export interface ProviderProps {}
 export interface ProviderState {}
 

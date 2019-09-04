@@ -17,7 +17,7 @@ extends React.Component<NotFoundProps, NotFoundState> {
 			<Helmet>
 				<title>{title}</title>
 			</Helmet>
-			<main className="v-not-found">
+			<main className="v-not-found u-fade-in">
 				<h1>{title}</h1>
 				<Link to="/" className="u-button">
 					To homepage

@@ -1,0 +1,19 @@
+@import "styles/vars"
+
+.c-gallery-card
+	box-shadow: 0 6px 12px rgba(black, .12)
+	transition: all 450ms $transition
+	position: relative
+	&:hover
+		box-shadow: 0 3px 5px rgba(black, .12)
+
+	div.actions
+		+pos(absolute, auto, 0, 0, 0)
+		display: flex
+		align-items: center
+		justify-content: space-between
+		padding: 10px 15px 10px 10px
+		background: linear-gradient(to top, black, rgba(black, 0))
+
+		div.likes-count
+			color: white

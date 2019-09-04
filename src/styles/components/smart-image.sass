@@ -1,0 +1,19 @@
+@import "styles/vars"
+
+div.c-smart-image
+	width: 100%
+	background: $colorMain
+	div.smart-image-wrapper
+		position: relative
+		height: 300px
+
+		.__block_to_remove
+			+pos(absolute, 0, 0, 0, 0)
+			display: flex
+			flex-direction: column
+			align-items: center
+			justify-content: center
+			padding: 10px
+			color: white
+			> *
+				margin-top: 10px

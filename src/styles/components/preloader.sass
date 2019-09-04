@@ -1,0 +1,25 @@
+@import "styles/vars"
+
+@keyframes spin
+	0%
+		transform: rotate(0deg) translateZ(0)
+	100%
+		transform: rotate(360deg) translateZ(0)
+
+div.c-preloader
+	display: flex
+	align-items: center
+	justify-content: center
+	&.light
+		div.circle
+			border-color: rgba(white, .24)
+			border-left-color: white
+	div.circle
+		width: 40px
+		height: 40px
+		border-radius: 50%
+		border-width: 2px
+		border-style: solid
+		border-color: rgba($colorMain, .24)
+		border-left-color: $colorMain
+		animation: spin 600ms linear 0s infinite

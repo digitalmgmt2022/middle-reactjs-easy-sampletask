@@ -1,0 +1,43 @@
+@import "styles/vars"
+
+div.c-like
+	width: 40px
+	height: 40px
+	padding: 5px
+	display: flex
+	align-items: center
+	justify-content: center
+	cursor: pointer
+	transition: all 450ms $transition
+	&.default
+		&:hover
+			svg
+				path
+					stroke: red
+					fill: rgba(red, .38)
+		svg
+			path
+				stroke: white
+				fill: rgba(white, 0)
+
+	&.liked
+		svg
+			path
+				stroke: red
+				fill: red
+
+	&.disabled
+		cursor: not-allowed
+		opacity: .38
+		svg
+			path
+				fill: rgba(white, 0)
+				stroke: white
+
+	svg
+		width: 100%
+		height: 100%
+		display: block
+		path
+			transition: all 450ms $transition
+			stroke-width: 3px

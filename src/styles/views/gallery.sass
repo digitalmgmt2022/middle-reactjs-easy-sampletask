@@ -1,0 +1,19 @@
+@import "styles/vars"
+
+main.v-gallery
+	max-width: 1200px
+	margin: 0 auto
+	overflow: hidden
+	h1
+		margin-bottom: 80px
+
+	div.grid
+		margin-right: -30px
+		display: flex
+		flex-wrap: wrap
+		align-items: center
+		justify-content: center
+		> *
+			width: calc(100% / 3 - 30px)
+			margin-right: 30px
+			margin-bottom: 30px
