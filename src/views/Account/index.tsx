@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 
 import "styles/views/account"
 
+import AccountStore from "stores/Account"
+
 export interface AccountProps extends RouteComponentProps<any> {}
 
 export interface AccountState {}
@@ -19,7 +21,10 @@ extends React.Component<AccountProps, AccountState> {
 				<title>{title}</title>
 			</Helmet>
 			<main className="v-account u-fade-in">
-				<h1>{title}, Username</h1>
+				<h1>
+					{title},<br/>
+					{AccountStore.username}
+				</h1>
 				<div className="actions">
 					<Link to="/gallery" className="u-button">
 						View gallery

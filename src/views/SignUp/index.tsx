@@ -1,14 +1,21 @@
 import React from "react"
-import { RouteComponentProps } from "react-router"
+import { RouteComponentProps, Redirect } from "react-router-dom"
 import Helmet from "react-helmet"
+import { observer } from "mobx-react"
 
 import "styles/views/sign"
 
 import Form from "components/Forms/Form"
 import Input, { InputFormEvent } from "components/Forms/Input"
+import Preloader from "components/Preloader"
+
+import { signup, signin } from "api/user"
+
+import Account from "stores/Account"
+import { Response } from "superagent"
 
 export type SignUpData = {
-	username: string,
+	login: string,
 	password: string,
 	password_confirm: string
 }
@@ -18,18 +25,45 @@ export interface SignUpProps extends RouteComponentProps<any> {
 }
 
 export interface SignUpState {
-	password: string
+	password: string,
+	loading: boolean,
+	error: boolean
 }
 
+@observer
 export default
 class SignUp
 extends React.Component<SignUpProps, SignUpState> {
 	state = {
-		password: ""
+		password: "",
+		loading: false,
+		error: false
+	}
+
+	signup = signup()
+	signin = signin()
+
+	componentWillUnmount() {
+		this.signup.abort()
+		this.signin.abort()
 	}
 
 	handleSubmit = (data: SignUpData) => {
-
+		this.setState({
+			loading: true,
+			error: false
+		})
+		this.signup.run({
+			login: data.login,
+			password: data.password
+		}).then((response: Response) => {
+			Account.setUserData(response.body)
+		}).catch(e => 
+			this.setState({
+				error: true,
+				loading: false
+			})
+		)
 	}
 
 	handlePasswordInput = (event: InputFormEvent): string => {
@@ -41,6 +75,8 @@ extends React.Component<SignUpProps, SignUpState> {
 	render() {
 		// Page should redirect to /account
 		// if user signed in
+		if (Account.isAuthed)
+			return <Redirect to="/account" />
 
 		var title = "Sign up to Instask"
 		return <>
@@ -54,10 +90,10 @@ extends React.Component<SignUpProps, SignUpState> {
 					onSubmit={this.handleSubmit}
 				>
 					<Input
-						label="Your name"
-						name="username"
+						label="Your login"
+						name="login"
 						required
-						placeholder="Enter your name"
+						placeholder="Enter your login"
 						pattern="[A-Za-z0-9]{3,24}"
 						renderInvalidMessage={key => {
 							return key == "patternMismatch"
@@ -90,10 +126,20 @@ extends React.Component<SignUpProps, SignUpState> {
 							return "Passwords do not match"
 						}}
 					/>
-					{/* Use preloader when form data is being processed */}
-					<button className="u-button">
-						Sign up right now!
-					</button>
+					{this.state.error &&
+						<p 
+							className="u-subtext"
+							style={{ color: "red" }}
+						>
+							This user is already exist
+						</p>
+					}
+					{this.state.loading
+						? <Preloader />
+						: <button className="u-button">
+							Sign up right now!
+						</button>
+					}
 				</Form>
 			</main>
 		</>

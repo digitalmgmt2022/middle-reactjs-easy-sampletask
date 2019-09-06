@@ -1,5 +1,6 @@
 import React from "react"
 import { RouteComponentProps, Switch, Route } from "react-router-dom"
+import { observer } from "mobx-react"
 
 import "styles/main"
 import "styles/universal"
@@ -13,14 +14,35 @@ import Account from "views/Account"
 import ViewWrapper from "views/ViewWrapper"
 
 import Navbar from "components/Navbar"
+import Preloader from "components/Preloader"
+
+import { identity } from "api/user"
+
+import AccountStore from "stores/Account"
 
 export interface ApplicationProps extends RouteComponentProps<any> {}
 export interface ApplicationState {}
 
+@observer
 export default
 class Application
 extends React.Component<ApplicationProps, ApplicationState> {
+	identity = identity()
+
+	componentDidMount() {
+		this.identity.run().then((resp: Response) => {
+			AccountStore.setUserData(resp.body as any)
+		}).catch(error => {
+			console.error(error)
+			AccountStore.ready = true
+		})
+	}
+
 	render() {
+		if (!AccountStore.ready)
+			return <main className="flex">
+				<Preloader />
+			</main>
 		return <>
 			<Navbar {...this.props} />
 			<Switch>

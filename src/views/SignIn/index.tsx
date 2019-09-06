@@ -1,10 +1,12 @@
 import React from "react"
-import { RouteComponentProps } from "react-router"
+import { RouteComponentProps, Redirect } from "react-router-dom"
 import Helmet from "react-helmet"
+import { observer } from "mobx-react"
 
 import "styles/views/sign"
 
 import SignInForm from "components/Forms/SignInForm"
+import Account from "stores/Account"
 
 export interface SignInProps extends RouteComponentProps<any> {
 	title?: string
@@ -12,6 +14,7 @@ export interface SignInProps extends RouteComponentProps<any> {
 
 export interface SignInState {}
 
+@observer
 export default
 class SignIn
 extends React.Component<SignInProps, SignInState> {
@@ -20,6 +23,9 @@ extends React.Component<SignInProps, SignInState> {
 	}
 
 	render() {
+		if (Account.isAuthed)
+			return <Redirect to="/account" />
+
 		var { title } = this.props
 		return <>
 			<Helmet>

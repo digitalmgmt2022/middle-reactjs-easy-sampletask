@@ -10,7 +10,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const TerserJSPlugin = require("terser-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
-const dev = "localhost:1488"
+const dev = "192.168.88.72:8081"
 const prod = "dev.global.com"
 
 var https = (target) => `https://${target}`
@@ -18,7 +18,7 @@ var http = (target) => `http://${target}`
 var wss = (target) => `wss://${target}`
 var ws = (target) => `ws://${target}`
 
-const BUILD = process.env.BUILD || "build"
+const BUILD = process.env.BUILD || "patch"
 const CONFIG = process.env.CONFIG
 const isDev = CONFIG == "dev"
 
@@ -28,8 +28,8 @@ console.log(`\x1b[32m\x1b[1m You are ${
 }\x1b[0m`)
 if (!isDev) {
 	switch(BUILD) {
-		case "build": 
-			console.log(`\x1b[32m\x1b[1m Increasing build... \x1b[0m`)
+		case "patch": 
+			console.log(`\x1b[32m\x1b[1m Increasing patch version... \x1b[0m`)
 			version.inc()
 			break
 		case "minor": 

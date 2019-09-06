@@ -1,18 +1,51 @@
 import React from "react"
 
+import { signin, identity } from "api/user"
+
 import Form from "components/Forms/Form"
 import Input from "components/Forms/Input"
+import Preloader from "components/Preloader"
+
+import Account from "stores/Account"
+import { Response } from "superagent"
 
 export type SignInData = {
-	username: string,
+	login: string,
 	password: string
+}
+
+export interface SignInFormState {
+	loading: boolean,
+	error: boolean
 }
 
 export default
 class SignInForm
 extends React.Component<any, any> {
-	handleSubmit = (data: SignInData) => {
+	state = {
+		loading: false,
+		error: false
+	}
 
+	signin = signin()
+
+	componentWillUnmount() {
+		this.signin.abort()
+	}
+
+	handleSubmit = (data: SignInData) => {
+		this.setState({ 
+			loading: true,
+			error: false
+		})
+		this.signin.run(data).then((response: Response) => {
+			Account.setUserData(response.body)
+		}).catch(error => {
+			this.setState({
+				error: true,
+				loading: false
+			})
+		})
 	}
 
 	render() {
@@ -22,10 +55,10 @@ extends React.Component<any, any> {
 				onSubmit={this.handleSubmit}
 			>
 				<Input
-					label="Your name"
-					name="username"
+					label="Your login"
+					name="login"
 					required
-					placeholder="Enter your name"
+					placeholder="Enter your login"
 					pattern="[A-Za-z0-9]{3,24}"
 					renderInvalidMessage={key => {
 						return key == "patternMismatch"
@@ -46,10 +79,20 @@ extends React.Component<any, any> {
 							: key
 					}}
 				/>
-				{/* Use preloader when form data is being processed */}
-				<button className="u-button">
-					Sign in
-				</button>
+				{this.state.error &&
+					<p 
+						className="u-subtext" 
+						style={{ color: "red" }}
+					>
+						There is no such user!
+					</p>
+				}
+				{this.state.loading
+					? <Preloader />
+					: <button className="u-button">
+						Sign in
+					</button>
+				}
 			</Form>
 		)
 	}

@@ -5,5 +5,6 @@ type GalleryPhoto = {
 }
 
 type UserData = {
-	id: number
+	id: number,
+	login: string
 }

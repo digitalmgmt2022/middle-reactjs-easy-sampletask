@@ -15,9 +15,22 @@ class AccountStore {
 		this._checked = isReady
 	}
 
+	@computed
+	get username(): string {
+		return this.userData
+			? this.userData.login
+			: "Anonymous"
+	}
+
+	@computed
+	get isAuthed(): boolean {
+		return this.ready && !!this.userData
+	}
+
 	@action
 	setUserData = (userData: UserData) => {
 		this.userData = userData
+		this.ready = true
 	}
 
 	@action
