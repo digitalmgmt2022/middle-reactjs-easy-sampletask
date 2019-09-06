@@ -10,7 +10,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const TerserJSPlugin = require("terser-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
-const dev = "localhost:1488"
+const dev = "sample-api-react.herokuapp.com"
 const prod = "dev.global.com"
 
 var https = (target) => `https://${target}`

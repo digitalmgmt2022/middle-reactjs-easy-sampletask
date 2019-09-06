@@ -38,7 +38,7 @@
 ```
 
 ## API docs
-[click me!](http://192.168.88.72:8081)
+[click me!](http://sample-api-react.herokuapp.com)
 
 ## Tasks overview
 1. Implement sign-in, sign-up and sign-out logic. Private pages should be wrapped with `views/SignIn.tsx`
