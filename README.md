@@ -41,7 +41,7 @@
 [click me!](http://192.168.88.72:8081)
 
 ## Tasks overview
-1. Implement sign-in, sign-up and sign-out logic. Private pages should be wrapped with `components/SignInForm.tsx`
+1. Implement sign-in, sign-up and sign-out logic. Private pages should be wrapped with `views/SignIn.tsx`
 2. Chain list of photos to provided API.
 3. Implement image-preload feature. Image in gallery card should not be displayed until it fully loaded. While image loading, `components/Preloader` should be shown. If image is not reachable, `components/BrokenImage` should be shown.
 4. Implement photo zoom by clicking on the image. If user reloads page while image is zoomed in, it should be still zoomed in after reload.
