@@ -54,10 +54,10 @@ extends React.Component<SignUpProps, SignUpState> {
 					onSubmit={this.handleSubmit}
 				>
 					<Input
-						label="Your name"
+						label="Your login"
 						name="username"
 						required
-						placeholder="Enter your name"
+						placeholder="Enter your login"
 						pattern="[A-Za-z0-9]{3,24}"
 						renderInvalidMessage={key => {
 							return key == "patternMismatch"

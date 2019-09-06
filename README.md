@@ -38,7 +38,7 @@
 ```
 
 ## API docs
-// insert API docs link here
+[click me!](http://192.168.88.72:8081)
 
 ## Tasks overview
 1. Implement sign-in, sign-up and sign-out logic. Private pages should be wrapped with `components/SignInForm.tsx`
