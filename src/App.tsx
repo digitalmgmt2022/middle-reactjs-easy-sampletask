@@ -1,5 +1,6 @@
 import React from "react"
 import { RouteComponentProps, Switch, Route } from "react-router-dom"
+import Superagent from "superagent"
 
 import "styles/main"
 import "styles/universal"
@@ -13,6 +14,8 @@ import Account from "views/Account"
 import ViewWrapper from "views/ViewWrapper"
 
 import Navbar from "components/Navbar"
+import { BASE_URL } from "consts"
+import AccountStore from "stores/Account"
 
 export interface ApplicationProps extends RouteComponentProps<any> {}
 export interface ApplicationState {}
@@ -20,6 +23,20 @@ export interface ApplicationState {}
 export default
 class Application
 extends React.Component<ApplicationProps, ApplicationState> {
+	componentDidMount() {
+		Superagent
+			.patch(`${BASE_URL}/auth`)
+			.set({
+				"Authorization": `Bearer ${localStorage.getItem("token")}`
+			})
+			.then(res => {
+				AccountStore.setToken(res.body.token)
+			})
+			.catch(err => {
+				console.log(err)
+			})
+	}
+	
 	render() {
 		return <>
 			<Navbar {...this.props} />

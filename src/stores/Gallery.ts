@@ -1,5 +1,6 @@
 import { computed, observable, action } from "mobx"
 import AccountStore from "stores/Account"
+import { GalleryPhoto } from "typings/Global"
 
 class GalleryStore {
 	@observable 

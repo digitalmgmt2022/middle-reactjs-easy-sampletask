@@ -5,6 +5,7 @@ import { observer } from "mobx-react"
 import { Link } from "react-router-dom"
 
 import "styles/views/homepage"
+import Account from "stores/Account"
 
 export interface HomepageProps extends RouteComponentProps<any> {}
 export interface HomepageState {}
@@ -23,7 +24,10 @@ extends React.Component<HomepageProps, HomepageState> {
 				<h1>
 					{title},<br/>
 					{/* If user is not signed up, show "Anonymous" string */}
-					Username!
+					{Account.ready
+						? "Username!"
+						: "Anonymous"
+					}
 				</h1>
 				<p className="u-subtext">
 					Good luck and have fun!
@@ -34,9 +38,12 @@ extends React.Component<HomepageProps, HomepageState> {
 					</Link>
 
 					{/* Do not render this button if user is signed in */}
-					<Link to="/sign-up" className="u-button blue">
-						Sign up
-					</Link>
+					{Account.ready
+						? null
+						: <Link to="/sign-up" className="u-button blue">
+							Sign up
+						</Link>
+					}
 				</div>
 			</main>
 		</>

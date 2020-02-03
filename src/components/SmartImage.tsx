@@ -4,6 +4,7 @@ import "styles/components/smart-image"
 
 import Preloader from "components/Preloader"
 import BrokenImage from "components/BrokenImage"
+import { GalleryPhoto } from "typings/Global"
 
 // If SmartImageProps.aspectRatio is "natural",
 // then "c-smart-image" should fit the parent element
@@ -34,16 +35,22 @@ extends React.Component<SmartImageProps, SmartImageState> {
 
 	// use "u-fade-in" className for smooth appearing of the image
 	render() {
+		let { photo } = this.props
 		return (
-			<div className="c-smart-image">
+			<div className="c-smart-image ">
 				<div className="smart-image-wrapper">
-					<div className="__block_to_remove">
-						Place your image here
-						{/* use this while image loading */}
-						<Preloader light />
-						{/* use this if image is not available */}
-						<BrokenImage />
-					</div>
+						{!photo
+							? <Preloader light />
+							: !photo.src
+								? <BrokenImage/>
+								: <img 
+									src={`${photo.src}`} 
+									alt=""
+									className="u-fade-in" 
+								/>
+						}
+						{/* <Preloader light /> */}
+						{/* <BrokenImage /> */}
 				</div>
 			</div>
 		)

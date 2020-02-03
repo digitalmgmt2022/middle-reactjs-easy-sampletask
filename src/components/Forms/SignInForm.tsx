@@ -2,24 +2,44 @@ import React from "react"
 
 import Form from "components/Forms/Form"
 import Input from "components/Forms/Input"
+import Superagent from "superagent"
+import Account from "stores/Account"
+import { BASE_URL } from "consts"
+import { observer } from "mobx-react"
+import { Redirect } from "react-router"
 
 export type SignInData = {
 	username: string,
 	password: string
 }
 
+@observer
 export default
 class SignInForm
 extends React.Component<any, any> {
-	handleSubmit = (data: SignInData) => {
-
+	identity = (data: SignInData) => {
+		Superagent
+			.post(`${BASE_URL}/auth`)
+			.set({})
+			.send({
+				login: data.username,
+				password: data.password
+			})
+			.then(res => {
+				Account.setToken(res.body.token)
+				Account.isCheked()
+			})
+			.catch(err => {
+				console.log("ERROR AUTH", err)
+			})
 	}
 
 	render() {
-		return (
-			<Form 
+		return (Account.ready
+			? <Redirect to="/gallery" />
+			: <Form 
 				className="u-form"
-				onSubmit={this.handleSubmit}
+				onSubmit={this.identity}
 			>
 				<Input
 					label="Your login"

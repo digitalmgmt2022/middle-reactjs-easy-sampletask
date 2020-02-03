@@ -1,11 +1,11 @@
-import { observable, action, computed } from "mobx"
+import { observable, action, computed, toJS, autorun } from "mobx"
+import { UserData } from "typings/Global"
+import { TOKEN } from "consts"
 
 class AccountStore {
-	@observable 
-	userData: UserData
-
-	@observable 
-	private _checked: boolean = false
+	@observable userData: UserData
+	@observable private _checked: boolean = false
+	@observable token: string = undefined as string
 
 	@computed
 	get ready(): boolean {
@@ -16,14 +16,35 @@ class AccountStore {
 	}
 
 	@action
-	setUserData = (userData: UserData) => {
-		this.userData = userData
+	setToken(token: string) {
+		this.token = token
+		this._checked = true
+		this.setTokenLS()
+	}
+
+	isCheked = () => {
+		this._checked = true
+	}
+
+	setTokenLS = () => {
+		if (typeof localStorage != "undefined")
+			localStorage.setItem(TOKEN, toJS(this.token))
 	}
 
 	@action
-	unsetUserData = () => {
-		this.userData = undefined
+	setUserData = (userData: UserData) => {
+		this.userData = userData
+		this._checked = true
 	}
+
+	@action
+	signOut = () => {
+		this.userData = undefined
+		this.token = undefined
+		this._checked = false
+		localStorage.removeItem(TOKEN)
+	}
+
 }
 
 export default new AccountStore()

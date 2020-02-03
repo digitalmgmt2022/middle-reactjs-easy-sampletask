@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom"
 import { observer } from "mobx-react"
 
 import "styles/components/navbar"
+import Account from "stores/Account"
 
 export interface NavbarProps extends RouteComponentProps<any>{}
 export interface NavbarState {}
@@ -42,23 +43,27 @@ extends React.Component<NavbarProps, NavbarState> {
 				</div>
 				<div className="right">
 					{/* if user not signed in */}
-					<div className="sign-actions">
-						<Link className="u-link" to="/sign-in">
-							Sign in
-						</Link>
-						&nbsp;or&nbsp; 
-						<Link className="u-button" to="/sign-up">
-							Sign up
-						</Link>
-					</div>
+					{!Account.ready
+						? <div className="sign-actions">
+							<Link className="u-link" to="/sign-in">
+								Sign in
+							</Link>
+							&nbsp;or&nbsp; 
+							<Link className="u-button" to="/sign-up">
+								Sign up
+							</Link>
+						</div>
+						:<div className="user-actions">
+							<div className="avatar" />
+							<span>Username</span>
+							<Link to="/account" className="u-button">
+								View account
+							</Link>
+						</div>
+					}
+					
 					{/* otherwise */}
-					<div className="user-actions">
-						<div className="avatar" />
-						<span>Username</span>
-						<Link to="/account" className="u-button">
-							View account
-						</Link>
-					</div>
+					
 				</div>
 			</nav>
 		</>
